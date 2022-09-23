@@ -113,9 +113,7 @@ void draw() {
 
   if (B > b_end && current_record < categories.size()) {
     load_category();
-  }
-  
-  if (current_record >= categories.size()) {
+  } else if ( B > b_end && current_record >= categories.size()) {
     exit();
   }
 }
