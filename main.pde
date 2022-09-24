@@ -9,6 +9,11 @@ float b_start, b_end;
 String category_name;
 int current_record = 0;
 
+int box_height = 80;
+int box_width = 120;
+int left_margin = 96;
+int top_margin = 240;
+
 void setup() {
   size(1600, 900);
   categories = loadJSONArray("data.json");
@@ -16,7 +21,6 @@ void setup() {
 
   colorMode(HSB, 360, 100, 100);
   bg = color(0, 0, 100);
-  textSize(16);
 }
 
 void load_category() {
@@ -34,6 +38,8 @@ void load_category() {
   S = s_start;
   B = b_start;
 
+  println("Category:", category_name, "\tS: ", s_start, "-", s_end, "\tB: ", b_start, "-", b_end);
+
   current_record++;
 }
 
@@ -46,10 +52,22 @@ void draw() {
 
   background(bg);
 
-  for (float i = 0; i < 2; i++) {
-    for (float ii = 0; ii < 6; ii++, H+=30.0) {
-      float x = ii * 240 + 96;
-      float y = i * 320 + 240;
+  fill(0);
+
+  String main_title = (category_name.toUpperCase()).charAt(0) + category_name.substring(1) + " Tones";
+  textSize(64);
+  text(main_title, 96, 80);
+
+  String sub_title = "S: " + floor(S) + " B: " + floor(B);
+  textSize(32);
+  text(sub_title, 96, 150);
+
+  textSize(16);
+
+  for (float ii = 0; ii < 4; ii++) {
+    for (float i = 0; i < 3; i++, H+=30.0) {
+      float x = left_margin + ii * (box_width + 50);
+      float y = top_margin + i * (box_height + 120);
       color sbg = color(H, S, B);
       String hsb_label = "HSB: " + floor(H) + ", " + floor(S) + ", " + floor(B);
 
@@ -92,13 +110,18 @@ void draw() {
 
       fill(sbg);
       noStroke();
-      rect(x, y, 208, 160, 10);
+      rect(x, y, box_width, box_height, 10);
+      arc(1200, 515, 500, 500, radians(H-104), radians(H-104+29));
+
       fill(0);
-      text(hsb_label, x+5, y+200);
-      text(rgb_label, x+5, y+220);
-      text(hex_label, x+5, y+240);
+      text(hsb_label, x+5, y+100);
+      text(rgb_label, x+5, y+120);
+      text(hex_label, x+5, y+140);
     }
   }
+
+      fill(bg);
+      ellipse(1200, 515, 300, 300);
 
   if (H >= 300.0) {
     endRecord();
