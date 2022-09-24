@@ -37,9 +37,7 @@ void load_category() {
   H = h_start;
   S = s_start;
   B = b_start;
-
-  println("Category:", category_name, "\tS: ", s_start, "-", s_end, "\tB: ", b_start, "-", b_end);
-
+  
   current_record++;
 }
 
@@ -56,7 +54,7 @@ void draw() {
 
   String main_title = (category_name.toUpperCase()).charAt(0) + category_name.substring(1) + " Tones";
   textSize(64);
-  text(main_title, 96, 80);
+  text(main_title, 96, 100);
 
   String sub_title = "S: " + floor(S) + " B: " + floor(B);
   textSize(32);
@@ -120,8 +118,8 @@ void draw() {
     }
   }
 
-      fill(bg);
-      ellipse(1200, 515, 300, 300);
+  fill(bg);
+  ellipse(1200, 515, 300, 300);
 
   if (H >= 300.0) {
     endRecord();
